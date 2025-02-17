@@ -1,22 +1,37 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <title>Untitled</title>
-  <link rel="stylesheet" href="./style.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма</title>
 </head>
 <body>
-<!-- partial:index.partial.html -->
-<html>
-<h1>Набор в команду</h1>
-добрий день це набор в команду по майнкрафту для знімання відео на канал
-<img src="https://i.pinimg.com/736x/2a/f8/06/2af80672c5eb3ee8c87b4f4732b62102.jpg" width="600px" height="550px/">
-<h1>
-
-</html>
-<!-- partial -->
-  <script  src="./script.js"></script>
-
+    <h1>Заповніть форму</h1>
+    <form action="submit.php" method="post">
+        <label for="name">Ваше ім'я:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        
+        <label for="telegram">Ваш телеграм-канал:</label>
+        <input type="text" id="telegram" name="telegram" required><br><br>
+        
+        <button type="submit">Надіслати</button>
+    </form>
 </body>
 </html>
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = htmlspecialchars($_POST["name"]);
+    $telegram = htmlspecialchars($_POST["telegram"]);
+    
+    $to = "your-email@example.com";  // Змініть на свою електронну адресу
+    $subject = "Нова заявка з сайту";
+    $message = "Ім'я: $name\nТелеграм-канал: $telegram";
+    $headers = "From: no-reply@yourwebsite.com";
+
+    if (mail($to, $subject, $message, $headers)) {
+        echo "Дані надіслані успішно!";
+    } else {
+        echo "Помилка надсилання.";
+    }
+}
+?>
