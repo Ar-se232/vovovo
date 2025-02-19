@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>аааааааааааааааааааааааааааааааа</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Форма відправки даних</title>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    (function() {
+      emailjs.init("YOUR_USER_ID"); // Замініть на ваш USER_ID
+    })();
+
+    function sendEmail(event) {
+      event.preventDefault(); // Запобігає перезавантаженню сторінки
+
+      let userName = document.getElementById("name").value;
+      let userTelegram = document.getElementById("telegram").value;
+
+      if (!userName || !userTelegram) {
+        alert("Будь ласка, заповніть всі поля!");
+        return;
+      }
+
+      let emailParams = {
+        name: userName,
+        telegram: userTelegram
+      };
+
+      emailjs.send("service_c0244fj", "YOUR_TEMPLATE_ID", emailParams)
+        .then(function(response) {
+          alert("Дані успішно надіслано!");
+          document.getElementById("contact-form").reset();
+        }, function(error) {
+          alert("Помилка при відправці! Спробуйте ще раз.");
+        });
+    }
+  </script>
+</head>
+<body>
+  <h2>Заповніть форму</h2>
+  <form id="contact-form" onsubmit="sendEmail(event)">
+    <label for="name">Ваше ім'я:</label>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="telegram">Ваш Telegram:</label>
+    <input type="text" id="telegram" name="telegram" required><br><br>
+
+    <button type="submit">Надіслати</button>
+  </form>
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
